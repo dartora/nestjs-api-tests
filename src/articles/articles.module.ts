@@ -1,9 +1,21 @@
 import { Module } from '@nestjs/common';
 import { ArticlesService } from './articles.service';
 import { ArticlesController } from './articles.controller';
+import { MongooseModule } from '@nestjs/mongoose';
+import { ArticleSchema } from './entities/article.entity';
+
+//  module = await Test.createTestingModule({
+//    imports: [
+//      ]),
+//    ],
+//    providers: [ArticlesService],
+//  }).compile();
 
 @Module({
+  imports: [
+    MongooseModule.forFeature([{ name: 'Article', schema: ArticleSchema }]),
+  ],
   controllers: [ArticlesController],
-  providers: [ArticlesService]
+  providers: [ArticlesService],
 })
 export class ArticlesModule {}

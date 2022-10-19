@@ -1,11 +1,20 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
+import { ArticleDocument } from './entities/article.entity';
 
 @Injectable()
 export class ArticlesService {
-  create(createArticleDto: CreateArticleDto) {
-    return 'This action adds a new article';
+  constructor(
+    @InjectModel('Article') private articleModel: Model<ArticleDocument>,
+  ) {}
+
+  async create(createArticleDto: CreateArticleDto) {
+    const articleDoc = new this.articleModel(createArticleDto);
+    await articleDoc.save();
+    return articleDoc;
   }
 
   findAll() {

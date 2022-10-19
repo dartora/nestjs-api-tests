@@ -1,5 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
+export type ArticleDocument = Article & Document;
+
 export type ArticleProps = {
   title: string;
   text: string;
